@@ -1,103 +1,158 @@
-import Image from "next/image";
+"use client";
+import React, { useState } from "react";
+import { Badge } from "@/components/Badge";
+import { FeatureCard } from "@/components/FeatureCard";
+import { IconSpark } from "@/components/icons/IconSpark";
+import { IconLink } from "@/components/icons/IconLink";
+import { IconTrack } from "@/components/icons/IconTrack";
 
 export default function Home() {
+  const [email, setEmail] = useState("");
+  const [submitted, setSubmitted] = useState(false);
+
+  function onSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    setSubmitted(true);
+  }
+
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              app/page.tsx
-            </code>
-            .
+    <main className="min-h-screen bg-white text-black selection:bg-black selection:text-white">
+      {/* Top border accent */}
+      <div className="h-1 w-full bg-black" />
+
+      {/* Hero */}
+      <section className="relative mx-auto max-w-7xl px-4 pb-20 pt-16">
+        <div className="absolute inset-x-4 -z-10 top-10 rounded-3xl border border-black/10" />
+
+        <div className="mx-auto grid max-w-4xl gap-8 text-center">
+          <p className="mx-auto w-fit rounded-full border border-black/20 px-3 py-1 text-xs uppercase tracking-widest">Open source, organized</p>
+          <h1 className="text-balance text-4xl font-extrabold tracking-tight sm:text-5xl md:text-6xl">
+            Find projects. Rally contributors. <span className="underline decoration-black/20">Ship faster.</span>
+          </h1>
+          <p className="mx-auto max-w-2xl text-pretty text-base text-black/70 md:text-lg">
+            OpenBoard is a lightweight hub for maintainers and makers to post projects, match with contributors, and track progress—without the overhead.
+          </p>
+
+          <div className="mx-auto flex flex-col items-center justify-center gap-3 sm:flex-row">
+            <a
+              href="#waitlist"
+              className="inline-flex items-center justify-center rounded-full bg-black px-6 py-3 text-sm font-semibold text-white shadow-sm transition hover:translate-y-0.5 active:translate-y-1"
+            >
+              Join the waitlist
+            </a>
+            <a
+              href="#features"
+              className="inline-flex items-center justify-center rounded-full border border-black px-6 py-3 text-sm font-semibold transition hover:bg-black hover:text-white"
+            >
+              Explore features
+            </a>
+          </div>
+
+          <div className="mx-auto mt-6 grid grid-cols-2 items-center gap-4 opacity-80 sm:grid-cols-4">
+            <Badge>Zero-config setup</Badge>
+            <Badge>Built for speed</Badge>
+            <Badge>Privacy‑friendly</Badge>
+            <Badge>Works with GitHub</Badge>
+          </div>
+        </div>
+      </section>
+
+      {/* Features */}
+      <section id="features" className="relative mx-auto max-w-7xl px-4 py-20">
+        {/* subtle frame to match hero */}
+        <div className="absolute inset-x-4 -z-10 top-6 rounded-3xl border border-black/10" />
+
+        <div className="mx-auto grid max-w-3xl place-items-center gap-3 text-center">
+          <p className="mx-auto w-fit rounded-full border border-black/20 px-3 py-1 text-xs uppercase tracking-widest">Why OpenBoard</p>
+          <h2 className="text-balance text-3xl font-extrabold tracking-tight sm:text-4xl">Purpose-built to keep momentum</h2>
+          <p className="text-black/70">
+            Post crisp project cards, match with aligned contributors, and keep progress visible without bloated PM tools.
+          </p>
+        </div>
+
+        <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <FeatureCard
+            title="Post a project in minutes"
+            desc="Create a skimmable card with goals, stack, and first issues. Ship the brief, not a novel."
+            icon={<IconSpark />}
+          />
+          <FeatureCard
+            title="Smart matching"
+            desc="We surface contributors who fit your stack and availability. They see projects that match their skills."
+            icon={<IconLink />}
+          />
+          <FeatureCard
+            title="Lightweight tracking"
+            desc="Milestones and updates in one clean view. Your repo stays the source of truth."
+            icon={<IconTrack />}
+          />
+        </div>
+      </section>
+
+      {/* How it works */}
+      <section id="how" className="relative mx-auto max-w-7xl px-4 py-20">
+        {/* subtle frame to match hero */}
+        <div className="absolute inset-x-4 -z-10 top-6 rounded-3xl border border-black/10" />
+
+        <div className="mx-auto grid max-w-3xl place-items-center gap-3 text-center">
+          <p className="mx-auto w-fit rounded-full border border-black/20 px-3 py-1 text-xs uppercase tracking-widest">How it works</p>
+          <h2 className="text-balance text-3xl font-extrabold tracking-tight sm:text-4xl">Three simple steps</h2>
+          <p className="text-black/70">From idea → team → shipped.</p>
+        </div>
+
+        <ol className="mx-auto mt-10 grid max-w-5xl gap-6 sm:grid-cols-3">
+          <li className="rounded-3xl border border-black/15 bg-white p-6 transition hover:-translate-y-0.5 hover:shadow-[0_8px_0_#000]">
+            <div className="mb-3 inline-flex h-9 w-9 items-center justify-center rounded-full border border-black font-semibold">1</div>
+            <div className="text-sm text-black/80">Publish your project card with goals, stack, and first issues.</div>
           </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
+          <li className="rounded-3xl border border-black/15 bg-white p-6 transition hover:-translate-y-0.5 hover:shadow-[0_8px_0_#000]">
+            <div className="mb-3 inline-flex h-9 w-9 items-center justify-center rounded-full border border-black font-semibold">2</div>
+            <div className="text-sm text-black/80">We surface aligned contributors. You review and invite.</div>
+          </li>
+          <li className="rounded-3xl border border-black/15 bg-white p-6 transition hover:-translate-y-0.5 hover:shadow-[0_8px_0_#000]">
+            <div className="mb-3 inline-flex h-9 w-9 items-center justify-center rounded-full border border-black font-semibold">3</div>
+            <div className="text-sm text-black/80">Track milestones, post updates, and celebrate releases.</div>
           </li>
         </ol>
+      </section>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+      {/* Waitlist */}
+      <section id="waitlist" className="mx-auto max-w-7xl px-4 py-20">
+        <div className="mx-auto max-w-xl rounded-3xl border border-black/15 p-6 sm:p-8">
+          <h3 className="text-center text-xl font-semibold sm:text-2xl">Get early access</h3>
+          <p className="mt-2 text-center text-sm text-black/70">
+            We’re onboarding the first batch of maintainers and contributors.
+          </p>
+          {submitted ? (
+            <div className="mt-6 rounded-2xl border border-black bg-black p-4 text-center text-white">
+              <p className="font-medium">You’re on the list! (demo)</p>
+              <p className="mt-1 text-sm text-white/80">
+                When your backend is ready, wire this form to <code className="rounded bg-white/10 px-1">/api/waitlist</code>.
+              </p>
+            </div>
+          ) : (
+            <form onSubmit={onSubmit} className="mt-6 flex flex-col gap-3 sm:flex-row">
+              <input
+                type="email"
+                required
+                placeholder="you@domain.com"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="h-11 w-full rounded-xl border border-black/25 px-4 outline-none ring-0 placeholder:text-black/40 focus:border-black focus:outline-none"
+                aria-label="Email address"
+              />
+              <button
+                type="submit"
+                className="h-11 shrink-0 rounded-xl bg-black px-5 text-sm font-semibold text-white hover:translate-y-0.5 active:translate-y-1"
+              >
+                Join waitlist
+              </button>
+            </form>
+          )}
+          <p className="mt-3 text-center text-xs text-black/60">No spam. Unsubscribe anytime.</p>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+      </section>
+    </main>
   );
 }
+
