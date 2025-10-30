@@ -20,6 +20,9 @@ export function getApiBase(): string | null {
   return base;
 }
 
-export function useProxy(): boolean {
+export function isProxyEnabled(): boolean {
   return process.env.NEXT_PUBLIC_USE_PROXY === "true";
 }
+
+// Backwards-compatible alias (avoid breaking imports in external forks)
+export { isProxyEnabled as useProxy };

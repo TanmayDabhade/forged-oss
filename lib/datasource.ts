@@ -1,4 +1,4 @@
-import { getDataMode, getApiBase, useProxy } from "@/lib/dataMode";
+import { getDataMode, getApiBase, isProxyEnabled } from "@/lib/dataMode";
 import { mockProjects } from "@/lib/mockProjects";
 
 export type Project = {
@@ -13,7 +13,7 @@ export type Project = {
 async function apiFetch(path: string, init?: RequestInit) {
   const base = getApiBase();
   if (!base) throw new Error("API base URL not set");
-  if (useProxy()) {
+  if (isProxyEnabled()) {
     // call our proxy route to avoid CORS
     const url = `/api/proxy${path.startsWith("/") ? path : "/" + path}`;
     const res = await fetch(url, { ...init, cache: "no-store" });

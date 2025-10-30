@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import { Resend } from "resend";
-import { getDataMode, useProxy } from "@/lib/dataMode";
+import { getDataMode, isProxyEnabled } from "@/lib/dataMode";
 
 const schema = z.object({
   name: z.string().min(2),
@@ -18,7 +18,7 @@ export async function POST(req: Request) {
     if (await mode === "api") {
       // Forward to backend waitlist endpoint (via proxy if enabled)
       const endpoint = "/waitlist"; // your backend route
-      const url = useProxy() ? `/api/proxy${endpoint}` : endpoint; // api/proxy uses NEXT_PUBLIC_API_BASE_URL
+  const url = isProxyEnabled() ? `/api/proxy${endpoint}` : endpoint; // api/proxy uses NEXT_PUBLIC_API_BASE_URL
       const res = await fetch(url, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(data) });
       const j = await res.json();
       if (!res.ok) return NextResponse.json(j, { status: res.status });
